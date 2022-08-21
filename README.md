@@ -1,0 +1,2 @@
+# ShopManager
+Manage shops
