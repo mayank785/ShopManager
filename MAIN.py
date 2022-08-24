@@ -1,7 +1,6 @@
 # importing modules
 from datetime import date, datetime
 import csv
-from math import prod
 
 # constants
 product_list = {}
