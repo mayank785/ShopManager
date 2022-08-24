@@ -1,10 +1,12 @@
 # importing modules
 from datetime import date, datetime
 import csv
+from math import prod
 
 # constants
 product_list = {}
 customer_dues = {}
+datetoday = date.today().strftime("%b-%d-%Y")
 
 def l_refresh():
     """ This fuction uses dictionary to update csv file """
@@ -34,10 +36,9 @@ def startup():
     """ This is the main program """
     l_refresh()
     print("========== MAIN PROGRAM ==========")
-    datetoday = date.today().strftime("%b-%d-%Y")
     print(f"Date Today : {datetoday}")
     supply()
-    start = input("Start making bill (y or n) : ")
+    start = input("Start work (y or n) : ")
     if start == "n":
         exit()
     elif start == "y":
@@ -74,8 +75,11 @@ def bill_maker():
         print(f"This customer already have to pay for last puchase....\nAmount to be paid : {customer_dues[f'{cn}']}")
     total = 0
     print("WHEN ALL ITEMS ARE BILLED JUST SKIP BY TYPING 'e' AND PRESSING ENTER.......")
-    with open(f"{cn}"+".csv", "a") as bill:
-        bill.write(f"Product Name, Units, Price, Amount")
+    with open(f"{cn}"+".txt", "a") as bill:
+        bill.write("========== MrCoder ==========")
+        bill.write(f"\nCustomer Name : {cn}")
+        bill.write(f"\nDate : {datetoday}")
+        bill.write(f"\nProduct Name - Unit - Cost Per Unit")
         for items in range(0, 100000000):
             p = input("Product Name : ")
             if p == "e":
@@ -93,7 +97,7 @@ def bill_maker():
             elif p in product_list:
                 avail = eval(f"{product_list[f'{p}']} - {str(u)}")
                 product_list[f"{p}"] = (avail)
-            bill.write(f"\n{p}, {u}, {cpp}, {u * cpp}")
+            bill.write(f"\n{p} - {u} - {cpp}")
             lcsv_refresh()
         print(f"Total Payable Amount = {total}")
         payment()
